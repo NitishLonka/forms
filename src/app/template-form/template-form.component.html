@@ -1,0 +1,72 @@
+
+<div class="container">
+    <div class="row">
+        <h1 class = "title">User Registration Form</h1>
+        <form (submit)="onSubmit()" #registerForm = "ngForm">
+<div class="form-group">
+    <input type="text" class="form-control"   placeholder="Full Name" [(ngModel)]="formData.fullname" name="fullname" #name="ngModel" required>
+  </div>
+  
+ <div class="form-group">
+    <input type="text"  class="form-control"  placeholder="Email" [(ngModel)]="formData.email" name="email" #email="ngModel" required email>
+<div *ngIf="email.invalid&&(email.dirty||email.touched)" class = "alert alert-danger">  
+<div *ngIf="email.errors?.['required']">
+    Email is required
+</div>
+<div *ngIf="email.errors?.['email']">
+    Email is Invalid
+</div>
+
+</div>
+</div>
+
+  
+  <div class="form-group">
+    <input type="text"  class="form-control"   placeholder="Phone number" [(ngModel)]="formData.phonenumber" name="phonenumber" #phonenumber="ngModel" required  minlength="10" maxlength="12">
+    <div *ngIf="phonenumber.invalid&&(phonenumber.dirty||phonenumber.touched)" class = "alert alert-danger">  
+        <div *ngIf="phonenumber.errors?.['required']">
+            PhoneNumber is required
+        </div>
+        <div *ngIf="phonenumber.errors?.['minlength']">
+            PhoneNumber Should have atleast 10 digits and maximum of 12 digits is allowed.
+        </div>
+        </div> 
+</div>
+  <div class="form-group">
+    <input type="password"  class="form-control"   placeholder="Password" [(ngModel)]="formData.password" name="password" #password="ngModel" required minlength="6">
+    <div *ngIf="password.invalid&&(password.dirty||password.touched)" class = "alert alert-danger">  
+        <div *ngIf="password.errors?.['required']">
+            Password is required
+        </div>
+        <div *ngIf="password.errors?.['minlength']">
+            Password  must be atleast 6 characters
+        </div>
+    </div>
+</div>
+  <div class="form-group">
+    <input type="password"  class="form-control"  placeholder="Confirm Password" [(ngModel)]="formData.confirmpassword" name="confirmpassword" #confirmpassword="ngModel" required appComfirmEqualValidator="password">
+    <div *ngIf="confirmpassword.invalid&&(confirmpassword.dirty||confirmpassword.touched)" class = "alert alert-danger">  
+        <div *ngIf="confirmpassword.errors?.['required']">
+            Confirm password is required
+        </div>
+        <div *ngIf="confirmpassword.errors?.['notEqual']">
+            passwords doesnot match
+        </div>
+        </div>
+</div>
+  <div class="form-group">
+  
+    <input type="checkbox"  name="terms" value="terms" required>
+    
+    <label for="terms"> I Agree to Terms and Conditions</label><br>
+   
+</div>
+  <button class="btn btn-primary" type="submit" [disabled]="!registerForm.form.valid">Sign up</button>
+</form>
+</div>
+<div *ngIf="issubmitted" style="display: flex;flex-direction:column;margin-top:3rem;">
+    <h4 style="margin-top: 2rem;">FullName:{{formData.fullname}}</h4>
+    <h4 style="margin-top: 2rem;">Email:{{formData.email}}</h4>
+    <h4 style="margin-top: 2rem;">PhoneNumber:{{formData.phonenumber}}</h4>
+</div>
+</div>
